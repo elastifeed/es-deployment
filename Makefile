@@ -6,5 +6,5 @@ start-elasticsearch:
 logs-elasticsearch:
 	@docker-compose -f elasticsearch/elasticsearch.yml logs
 
-stop-selasticsearch:
+stop-elasticsearch:
 	@docker-compose -f elasticsearch/elasticsearch.yml down
