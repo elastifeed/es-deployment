@@ -16,4 +16,5 @@ Make sure to have the latest version of [Docker](https://github.com/docker/docke
 ## Access
 
   *Elasticsearch* can be accessed on `(localhost|hostip):9200` ([click](http://localhost:9200))
+
   *Kibana* can be accessed on `(localhost|hostip):5601` ([click](http://localhost:5601))
