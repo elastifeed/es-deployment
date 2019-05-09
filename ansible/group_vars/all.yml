@@ -18,7 +18,13 @@ users:
     password: $6$MyRGz9DB14FF.wDi$UjQ4M8fbm2k96BFQ0FochVMvo33bP1TYXzQyrXXB43jy1Ibo8.ki02hHbDhHWWh/8mML84KCoVFDqxnWM0bO/0
 
 elk:
-  cluster_name: elastifeed
-  discovery_ips: "134.96.217.36, 134.96.217.51"
-  username: elastifeed
-  password: elastifeed
+  kibana:
+    server_name: kibana.xvzf.tech
+  search:
+    cluster_name: elastifeed
+    hosts:
+      - "http://134.96.217.36:9200"
+      - "http://134.96.217.51:9200"
+    discovery_ips: "134.96.217.36, 134.96.217.51"
+    username: elastifeed
+    password: elastifeed

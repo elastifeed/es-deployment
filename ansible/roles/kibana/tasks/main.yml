@@ -1,0 +1,12 @@
+---
+- name: Creating kibana container
+  docker_container:
+    name: kibana
+    image: "docker.elastic.co/kibana/kibana:7.0.1"
+    state: started
+    restart: yes
+    published_ports:
+      - 127.0.0.1:5601:5601
+    env:
+      SERVER_NAME: "{{ elk.kibana.server_name }}"
+      ELASTICSEARCH_HOSTS: "{{ elk.search.hosts[0] }}"

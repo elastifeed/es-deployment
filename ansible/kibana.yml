@@ -1,0 +1,5 @@
+- name: Kibana
+  hosts:
+    - swl0
+  roles:
+    - role: kibana
