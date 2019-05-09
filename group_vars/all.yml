@@ -17,6 +17,22 @@ users:
     github: jschaefer-io
     password: $6$MyRGz9DB14FF.wDi$UjQ4M8fbm2k96BFQ0FochVMvo33bP1TYXzQyrXXB43jy1Ibo8.ki02hHbDhHWWh/8mML84KCoVFDqxnWM0bO/0
 
+  - name: bonnyfication
+    github: bonnyfication
+    password: $6$MyRGz9DB14FF.wDi$UjQ4M8fbm2k96BFQ0FochVMvo33bP1TYXzQyrXXB43jy1Ibo8.ki02hHbDhHWWh/8mML84KCoVFDqxnWM0bO/0
+
+  - name: airsmart
+    github: airsmart
+    password: $6$MyRGz9DB14FF.wDi$UjQ4M8fbm2k96BFQ0FochVMvo33bP1TYXzQyrXXB43jy1Ibo8.ki02hHbDhHWWh/8mML84KCoVFDqxnWM0bO/0
+
+  - name: napspan
+    github: napspanien
+    password: $6$MyRGz9DB14FF.wDi$UjQ4M8fbm2k96BFQ0FochVMvo33bP1TYXzQyrXXB43jy1Ibo8.ki02hHbDhHWWh/8mML84KCoVFDqxnWM0bO/0
+
+  - name: mhmmed93m
+    github: mhmmed93m
+    password: $6$MyRGz9DB14FF.wDi$UjQ4M8fbm2k96BFQ0FochVMvo33bP1TYXzQyrXXB43jy1Ibo8.ki02hHbDhHWWh/8mML84KCoVFDqxnWM0bO/0
+
 elk:
   kibana:
     server_name: kibana.xvzf.tech
