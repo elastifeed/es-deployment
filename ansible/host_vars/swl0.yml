@@ -1,0 +1,4 @@
+---
+elasticsearch:
+  node_name: "es_swl0"
+  master: no
