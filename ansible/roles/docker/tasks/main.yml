@@ -1,0 +1,39 @@
+---
+
+- name: check if docker-ce is installed
+  command: dpkg -l docker-ce
+  ignore_errors: yes
+  register: docker_ce_check
+
+- include: setup.yml
+  when: docker_ce_check.rc == 1
+
+- name: install docker
+  package:
+    name: "{{ item }}"
+    state: latest
+  notify: restart docker
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - python-setuptools
+    - python-pip
+
+- name: install docker python package
+  pip:
+    name: docker
+    state: latest
+
+- name: Ensure docker is enbaled and started
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Add users to docker group for sudoleass docker commands
+  user:
+    name: "{{ item.name }}"
+    groups: docker
+    append: true
+  with_items: "{{ users }}"
