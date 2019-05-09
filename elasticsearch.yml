@@ -2,6 +2,7 @@
   hosts:
     - swl0
     - swl1
+    - swl2
   roles:
     - role: elastic.elasticsearch
   vars:
