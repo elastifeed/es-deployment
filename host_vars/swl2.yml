@@ -1,0 +1,5 @@
+---
+elasticsearch:
+  node_name: "es_swl2"
+  interfaces: "_enp0s3_, _local_"
+  master: no
