@@ -15,7 +15,7 @@
       discovery.zen.ping.unicast.hosts: "{{ elk.discovery_ips }}"
       http.port: 9200
       transport.tcp.port: 9300
-      network.host: "_enp0s3_, _local_"
+      network.host: "{{ elasticsearch.interfaces }}"
       node.data: yes
       node.master: "{{ elasticsearch.master }}"
       bootstrap.memory_lock: yes
