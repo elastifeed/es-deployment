@@ -1,4 +1,5 @@
 # Elastifeed infrastructure scripts
+> Kubernetes files are [here](https://github.com/elastifeed/es-deployment/tree/kubernetes)
 
 Ansible playbook for deploying the elastifeed infrastructure. This includes (for now) an elasticsearch cluster and the corresponding kibana dashboard.
 
