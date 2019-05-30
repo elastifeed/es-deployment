@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: elastifeed
+  name: es-rss-deployment
+  labels:
+    app: es-rss
+spec:
+  replicas: 4 # Number of concurrent running instances
+  selector:
+    matchLabels:
+      app: es-rss
+  template:
+    metadata:
+      labels:
+        app: es-rss
+    spec:
+      containers:
+        - name: es-rss
+          image: quay.io/elastifeed/es-rss:v0.1-poc # Docker image
+          ports:
+            - containerPort: 8080 # Exposed port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: elastifeed
+  name: es-rss-service
+spec:
+  selector:
+    app: es-rss
+  ports:
+    - protocol: TCP
+      port: 80 # We map everything to port 80 so we can omit the port in our code
+      targetPort: 8080
