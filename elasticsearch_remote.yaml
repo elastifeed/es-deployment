@@ -1,0 +1,13 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: elastifeed
+  name: elasticsearch-service
+spec:
+  type: ExternalName
+  externalName: 10.42.0.1.xip.io # <-- This has to be changed! xio.io is an awesome service. it just resolves to whatever ip is left of .xip.io (in this case 10.42.0.1)
+  ports:
+    - protocol: TCP
+      port: 9200
+      targetPort: 9200
