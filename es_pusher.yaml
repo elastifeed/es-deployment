@@ -36,4 +36,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80 # We map everything to port 80 so we can omit the port in our code
-      targetPort: 9000
+      targetPort: 9090
