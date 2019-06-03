@@ -1,0 +1,12 @@
+---
+- name: Copy timesyncd config
+  copy:
+    src: timesyncd.conf
+    dest: /etc/systemd/timesyncd.conf
+    mode: 0644
+
+- name: Restart service
+  service:
+    name: systemd-timesyncd
+    state: restarted
+    enabled: yes
