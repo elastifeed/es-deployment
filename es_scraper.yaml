@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: elastifeed
+  name: es-scraper-service
+spec:
+  selector:
+    app: es-scraper
+  ports:
+    - protocol: TCP
+      port: 80 # We map everything to port 80 so we can omit the port in our code
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: elastifeed
+  name: es-scraper-deployment
+  labels:
+    app: es-scraper
+spec:
+  replicas: 1 # Number of concurrent running instances
+  selector:
+    matchLabels:
+      app: es-scraper
+  template:
+    metadata:
+      labels:
+        app: es-scraper
+    spec:
+      containers:
+        - name: es-scraper
+          image: quay.io/elastifeed/es-scraper:v0.4 # Docker image
+          env:
+            - name: S3_ENDPOINT
+              value: https://swl.xvzf.tech:30098/
+            - name: S3_BUCKET_NAME
+              value: elastifeed
+            - name: API_BIND
+              value: ":8000"
+            - name: MERCURY_URL
+              value: "http://es-extractor-service/mercury/html"
+          envFrom:
+            - secretRef:
+                name: s3-credentials
+          ports:
+            - containerPort: 8000 # Exposed port
