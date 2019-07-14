@@ -31,18 +31,23 @@ spec:
     spec:
       containers:
         - name: es-scraper
-          image: quay.io/elastifeed/es-scraper:v0.4 # Docker image
+          image: quay.io/elastifeed/es-scraper:latest
           env:
             - name: S3_ENDPOINT
-              value: https://swl.xvzf.tech:30098/
+              value: https://swl.xvzf.tech:30151/
             - name: S3_BUCKET_NAME
               value: elastifeed
             - name: API_BIND
               value: ":8000"
             - name: MERCURY_URL
-              value: "http://es-extractor-service/mercury/html"
+              value: "http://es-extractor-service/mercury/url"
           envFrom:
             - secretRef:
                 name: s3-credentials
           ports:
             - containerPort: 8000 # Exposed port
+        - name: browserless
+          image: browserless/chrome:latest
+          env:
+            - name: CONNECTION_TIMEOUT # Never timeout a connection.
+              value: "-1"

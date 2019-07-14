@@ -1,0 +1,107 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: es-collector-service
+spec:
+  selector:
+    app: myapp
+  ports:
+    - port: 80
+      targetPort: 80
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: es-collector-sts
+  namespace: elastifeed
+spec:
+  selector:
+    matchLabels:
+      app: es-collector
+  serviceName: es-collector-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: es-collector
+    spec:
+      containers:
+        - name: es-collector
+          image: quay.io/elastifeed/es-collector:latest
+          volumeMounts:
+            - name: app
+              mountPath: /srv/app
+
+       # initContainers:
+       # - name: fix-permissions
+       #   image: busybox
+       #   command: ["sh", "-c", "chown -R 33:33 /app"] # ID 33 is www-data
+       #   securityContext:
+       #     privileged: true
+       #   volumeMounts:
+       #     - name: app
+       #       mountPath: /app
+
+       # - name: git-clone
+       #   image: alpine/git:1.0.7
+       #   args: ["clone", "https://github.com/elastifeed/es-collector.git", "/app"]
+       #   securityContext:
+       #     runAsUser: 33
+       #   volumeMounts:
+       #     - name: app
+       #       mountPath: /app
+
+       # - name: composer
+       #   image: composer:1.8.6
+       #   args: ["composer", "install"]
+       #   securityContext:
+       #     runAsUser: 33
+       #   volumeMounts:
+       #     - name: app
+       #       mountPath: /app
+
+       # - name: key-generate
+       #   image: php:7.3
+       #   workingDir: /app
+       #   command: ["php" ,"artisan key:generate"]
+       #   securityContext:
+       #     runAsUser: 33
+       #   volumeMounts:
+       #     - name: app
+       #       mountPath: /app
+
+       # - name: migrate
+       #   image: php:7.3
+       #   workingDir: /app
+       #   command: ["php" ,"artisan migrate"]
+       #   securityContext:
+       #     runAsUser: 33
+       #   volumeMounts:
+       #     - name: app
+       #       mountPath: /app
+
+       # - name: passport-install
+       #   image: php:7.3
+       #   workingDir: /app
+       #   command: ["php" ,"artisan passport:install"]
+       #   securityContext:
+       #     runAsUser: 33
+       #   volumeMounts:
+       #     - name: app
+       #       mountPath: /app
+
+  volumeClaimTemplates:
+    - metadata:
+        name: app
+        labels:
+          app: es-collector
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: local-path
+        

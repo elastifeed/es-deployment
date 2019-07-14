@@ -1,0 +1,51 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: elastifeed
+  name: es-processor-service
+spec:
+  selector:
+    app: redis
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: es-processor-configmap
+  namespace: elastifeed
+data:
+  ES_REDIS: "redis://redis-service"
+  ES_PUSHER: "http://es-pusher-service/add"
+  ES_SCRAPER: "http://es-scraper-service/scrape/all"
+  ES_RSS: "http://es-rss-service/parse"
+  ES_RSS_SCRAPE: "http://notimplementedyet"
+  ES_RSS_SCRAPE_INTERVAL: "60"
+  ES_WORKER_COUNT: "4"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: es-processor
+  namespace: elastifeed
+spec:
+  selector:
+    matchLabels:
+      app: es-processor
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: es-processor
+    spec:
+      containers:
+        - name: es-processor
+          image: quay.io/elastifeed/es-processor:latest
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: es-processor-configmap

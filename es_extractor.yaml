@@ -7,7 +7,7 @@ metadata:
   labels:
     app: es-extractor
 spec:
-  replicas: 2 # Number of concurrent running instances
+  replicas: 1 # Number of concurrent running instances
   selector:
     matchLabels:
       app: es-extractor
