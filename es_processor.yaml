@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
         - name: es-processor
-          image: quay.io/elastifeed/es-processor:latest
+          image: quay.io/elastifeed/es-processor:v1.0
           ports:
             - containerPort: 3000
           envFrom:
