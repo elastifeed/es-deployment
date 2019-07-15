@@ -22,7 +22,7 @@ data:
   ES_PUSHER: "http://es-pusher-service/add"
   ES_SCRAPER: "http://es-scraper-service/scrape/all"
   ES_RSS: "http://es-rss-service/parse"
-  ES_RSS_SCRAPE: "http://notimplementedyet"
+  ES_RSS_SCRAPE: "http://es-collector-service/api/v1/fetch/feeds"
   ES_RSS_SCRAPE_INTERVAL: "60"
   ES_WORKER_COUNT: "4"
 ---
