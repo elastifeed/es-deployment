@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: es-pusher
-          image: quay.io/elastifeed/es-pusher:v1.1 # Docker image
+          image: quay.io/elastifeed/es-pusher:v1.2 # Docker image
           ports:
             - containerPort: 9090 # Exposed port
           env:

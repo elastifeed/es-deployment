@@ -6,11 +6,11 @@ metadata:
   name: es-processor-service
 spec:
   selector:
-    app: redis
+    app: es-processor
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 3000
+      targetPort: 8000
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -23,7 +23,7 @@ data:
   ES_SCRAPER: "http://es-scraper-service/scrape/all"
   ES_RSS: "http://es-rss-service/parse"
   ES_RSS_SCRAPE: "http://es-collector-service/api/v1/fetch/feeds"
-  ES_RSS_SCRAPE_INTERVAL: "60"
+  ES_RSS_SCRAPE_INTERVAL: "360"
   ES_WORKER_COUNT: "4"
 ---
 apiVersion: apps/v1
@@ -43,9 +43,9 @@ spec:
     spec:
       containers:
         - name: es-processor
-          image: quay.io/elastifeed/es-processor:v1.0
+          image: quay.io/elastifeed/es-processor:v1.2
           ports:
-            - containerPort: 3000
+            - containerPort: 8000
           envFrom:
             - configMapRef:
                 name: es-processor-configmap
