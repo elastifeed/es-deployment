@@ -34,7 +34,7 @@ spec:
           image: quay.io/elastifeed/es-scraper:latest
           env:
             - name: S3_ENDPOINT
-              value: https://swl.xvzf.tech:30151/
+              value: http://es-s3.rocketlan.de/
             - name: S3_BUCKET_NAME
               value: elastifeed
             - name: API_BIND
