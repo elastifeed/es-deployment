@@ -1,0 +1,56 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: elastifeed-swl
+  namespace: fireplace
+spec:
+  type: ExternalName
+  externalName: 10.42.0.1
+  ports:
+    - port: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: elastifeed-collector-ingress
+  namespace: fireplace
+spec:
+  rules:
+    - host: es-collector.rocketlan.de
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: elastifeed-swl
+              servicePort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: elastifeed-s3-ingress
+  namespace: fireplace
+spec:
+  rules:
+    - host: es-s3.rocketlan.de
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: elastifeed-swl
+              servicePort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: elastifeed-ingress
+  namespace: fireplace
+spec:
+  rules:
+    - host: elastifeed.rocketlan.de
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: elastifeed-swl
+              servicePort: 8080
